@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>海缆故障定位 · 多水听器联合解算</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <h1>海缆故障定位</h1>
+      <p class="subtitle">
+        树状海缆网络 + 多水听器到时区间 · 服务端按有理数精确联合求解连续位置与发生时刻
+      </p>
+    </header>
+
+    <main>
+      <section class="card">
+        <h2>1. 网络节点 <span class="hint">4 ~ 12 个，以空格 / 逗号分隔</span></h2>
+        <input id="nodes" type="text" spellcheck="false" placeholder="例如：N0 N1 N2 N3 N4 N5" />
+      </section>
+
+      <section class="card">
+        <h2>2. 管段（边）<span class="hint">树网要求：边数 = 节点数 − 1，长度为正（米）</span></h2>
+        <table class="grid" id="edges-table">
+          <thead>
+            <tr><th>起点</th><th>终点</th><th>长度（m）</th><th></th></tr>
+          </thead>
+          <tbody id="edges-body"></tbody>
+        </table>
+        <button id="add-edge" type="button" class="ghost">+ 添加管段</button>
+      </section>
+
+      <section class="card">
+        <h2>3. 传播速度</h2>
+        <div class="inline">
+          <input id="speed" type="text" inputmode="decimal" placeholder="例如：1000" />
+          <span class="unit">m/s（全网统一，正数）</span>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>4. 水听器（传感器）<span class="hint">3 ~ 6 台，挂在节点上，到时为闭区间（秒）</span></h2>
+        <table class="grid" id="sensors-table">
+          <thead>
+            <tr><th>编号</th><th>所在节点</th><th>到时下限（s）</th><th>到时上限（s）</th><th></th></tr>
+          </thead>
+          <tbody id="sensors-body"></tbody>
+        </table>
+        <button id="add-sensor" type="button" class="ghost">+ 添加传感器</button>
+      </section>
+
+      <div class="actions">
+        <button id="submit" class="primary" type="button">提交定位</button>
+        <button id="load-sample" type="button">载入示例</button>
+        <button id="clear" type="button">清空结果</button>
+      </div>
+
+      <section id="report" aria-live="polite"></section>
+    </main>
+
+    <datalist id="node-list"></datalist>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
