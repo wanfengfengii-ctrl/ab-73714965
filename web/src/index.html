@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>海缆故障定位 · 水听器到时联合解算</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>海缆故障定位</h1>
+    <p class="sub">
+      带长度树网 × 多台水听器到时闭区间 × 统一传播速度 ——
+      服务端按有理数精确联立求解连续位置与未知发生时刻，给出全部待检管段
+    </p>
+  </header>
+
+  <main>
+    <section class="panel" aria-label="输入">
+      <h2>1. 树网节点 <small>4–12 个，整数编号，逗号或空格分隔</small></h2>
+      <input id="nodes" type="text" spellcheck="false"
+             value="1, 2, 3, 4" placeholder="例如：1, 2, 3, 4, 5">
+
+      <h2>2. 边 <small>每行一条：起点 终点 长度；长度为正，可用小数或分数（如 5/2）</small></h2>
+      <textarea id="edges" rows="5" spellcheck="false"
+                placeholder="1 2 4">1 2 4
+2 3 4
+2 4 4</textarea>
+
+      <h2>3. 统一传播速度 <small>正有理数</small></h2>
+      <input id="speed" type="text" spellcheck="false" value="1" placeholder="例如：1.5">
+
+      <h2>4. 传感器 <small>3–6 台，挂在不同节点上，到时为闭区间</small></h2>
+      <table class="sensor-table">
+        <thead>
+          <tr><th>编号</th><th>所在节点</th><th>到时起点</th><th>到时终点</th><th></th></tr>
+        </thead>
+        <tbody id="sensor-rows"></tbody>
+      </table>
+      <button id="add-sensor" type="button" class="ghost">+ 添加传感器</button>
+
+      <div class="actions">
+        <button id="submit" type="button" class="primary">提交定位</button>
+        <button id="load-example" type="button">载入示例</button>
+        <button id="clear" type="button" class="ghost">清空结果</button>
+      </div>
+    </section>
+
+    <section class="panel" aria-label="报告">
+      <h2>定位报告</h2>
+      <div id="error" class="error" hidden></div>
+      <div id="report"></div>
+      <p id="empty-hint" class="hint">
+        提交后在此显示所有可能的管段、各段里程范围，以及可共同成立的故障发生时刻范围。
+        当记录共同指向多段海缆时，报告会列出全部待检区段，而不是给出单一断点。
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>里程自首个节点起沿唯一路径累计；所有范围均为精确有理数结果，括号内为小数近似。</p>
+  </footer>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
